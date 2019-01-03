@@ -30,7 +30,7 @@ def runMainPost(ivAnvandare, ivForetag):
     log = ""
 
     try:
-        cli = Client(req_open, uppPersInfo, content, action, sso=False)
+        cli = Client(req_open, uppPersInfo, content, action, args.enviroment, sso=False )
         # check the results of the call
       #  if ivAnvandare == '0012347285':
         cli.call("", ivAnvandare, ivForetag)
@@ -39,7 +39,7 @@ def runMainPost(ivAnvandare, ivForetag):
 
             if not (cli.json_content['etRetur']):
                 #write to the log application
-                cli2 = Client(req_open, hamtaHuvAdmin,  jsData, "POST", sso=False)  #Post
+                cli2 = Client(req_open, hamtaHuvAdmin,  jsData, "POST", args.enviroment, sso=False)  #Post
                 cli2.call(jsData, ivAnvandare, ivForetag)
                 if (str(cli2.responseCode) == "200"):
                     if cli2.json_content['etAdministratorer']:
@@ -94,7 +94,7 @@ def runMainGet():
     grundUppgUrl = initiator.gettargeturl("HAMTA_ANV_GRUNDUPPG_API", "", "")
     content = ""
     action = "GET"
-    cli = Client(req_open, grundUppgUrl, content, action, sso=False)
+    cli = Client(req_open, grundUppgUrl, content, action, args.enviroment, sso=False)
     #check the results of the call
     cli.call("", "", "")
     #Statistic for Data format
